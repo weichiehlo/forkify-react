@@ -6,29 +6,43 @@ import Recipe from '../components/Recipe'
 import Shopping from '../components/Shopping'
 import CopyRight from '../components/CopyRight'
 import axios from 'axios'
+import { setSearchField } from '../actions';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state =>{
+  return {
+    searchField:state.searchField
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return{
+
+    onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+
+  }
+    
+}
 
 class App extends Component {
   constructor(){
     super();
     this.state = {
       searchResult:[],
-      userInput:''
+      loading:false
     }
   }
 
   onSearchClick = async(event) =>{
     event.preventDefault();
-    await this.getResult(this.state.userInput)
+    await this.getResult(this.props.searchField)
   }
 
-  handleSearchChange = (event) =>{
-    this.setState({userInput: event.target.value});
- }
 
   getResult = async(query) =>{
     try {
+      this.setState({loading:true})
       const res = await axios.get(`https://forkify-api.herokuapp.com/api/search?&q=${query}`);
-      this.setState({searchResult: res.data.recipes})
+      this.setState({searchResult: res.data.recipes, loading: false})
       
   } catch(error){
       alert(error)
@@ -40,8 +54,8 @@ class App extends Component {
   render(){
     return (
       <div className="container">
-          <Header onSearchClick = { this.onSearchClick } handleSearchChange = { this.handleSearchChange } userInput = { this.state.userInput } />
-          <Results searchResult = { this.state.searchResult } />
+          <Header onSearchClick = { this.onSearchClick } onSearchChange = { this.props.onSearchChange } userInput = { this.props.searchField } />
+          <Results searchResult = { this.state.searchResult } loading = {this.state.loading} />
           <Recipe />
           <Shopping />
           <CopyRight />
@@ -51,4 +65,4 @@ class App extends Component {
   
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -18,7 +18,6 @@ class Results extends Component{
     render(){
         if(this.props.searchResult.length){
             
-            
             return(
             <div className="results">
                 <ResultsList searchResult = { this.props.searchResult } page = {this.state.currentPage} resPerPage= {this.state.resPerPage} />
@@ -27,13 +26,20 @@ class Results extends Component{
 
         )
         }
-        else{
+        else if(this.props.loading){
             return(
                 <div className="loader">
                     <svg>
                         <use href="img/icons.svg#icon-cw"></use>
                     </svg>
                 </div>
+            )
+        }
+        else{
+            return(
+                <h2 className="heading-2">
+                        No Results Yet
+                </h2>
             )
         }
     }
