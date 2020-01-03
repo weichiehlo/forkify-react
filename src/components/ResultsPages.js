@@ -16,8 +16,8 @@ const ResultsPages = function({page, numResult, resPerPage, onPageClick}){
         //Both buttons
         return(
             <div className="results__pages">
-                <Page page = { page } type = { 'prev' } onPageClick = { onPageClick }/>
                 <Page page = { page } type = { 'next' } onPageClick = { onPageClick }/>
+                <Page page = { page } type = { 'prev' } onPageClick = { onPageClick }/>
             </div>
         )
     }
