@@ -5,57 +5,28 @@ import Results from '../components/Results'
 import Recipe from '../components/Recipe'
 import Shopping from '../components/Shopping'
 import CopyRight from '../components/CopyRight'
-import axios from 'axios'
-import { setSearchField } from '../actions';
+import { setSearchField, requestRecipes } from '../actions';
 import { connect } from 'react-redux';
 
-const mapStateToProps = state =>{
-  return {
-    searchField:state.searchField
-  }
-}
-const mapDispatchToProps = (dispatch) => {
-  return{
 
-    onSearchChange: (event) => dispatch(setSearchField(event.target.value))
-
-  }
-    
-}
 
 class App extends Component {
   constructor(){
     super();
-    this.state = {
-      searchResult:[],
-      loading:false
-    }
   }
 
   onSearchClick = async(event) =>{
     event.preventDefault();
-    await this.getResult(this.props.searchField)
+
+    await this.props.requestRecipes(this.props.searchField)
+
   }
-
-
-  getResult = async(query) =>{
-    try {
-      this.setState({loading:true})
-      const res = await axios.get(`https://forkify-api.herokuapp.com/api/search?&q=${query}`);
-      this.setState({searchResult: res.data.recipes, loading: false})
-      
-  } catch(error){
-      alert(error)
-  }
-  }
-
-
 
   render(){
     return (
       <div className="container">
-          <Header onSearchClick = { this.onSearchClick } onSearchChange = { this.props.onSearchChange } userInput = { this.props.searchField } />
-          <Results searchResult = { this.state.searchResult } loading = {this.state.loading} />
+          <Header onSearchClick = { this.onSearchClick } onSearchChange = { (event)=>this.props.setSearchField(event.target.value) } userInput = { this.props.searchField } />
+          <Results searchResult = { this.props.recipes } loading = {this.props.isPending} />
           <Recipe />
           <Shopping />
           <CopyRight />
@@ -65,4 +36,22 @@ class App extends Component {
   
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+const mapStateToProps = state =>{
+  return {
+    searchField:state.searchRecipes.searchField,
+    recipes: state.requestRecipes.recipes,
+    isPending: state.requestRecipes.isPending,
+    error: state.requestRecipes.error
+  }
+}
+// const mapDispatchToProps = (dispatch) => {
+//   return{
+
+//     onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+//     onRequestRecipe: () => dispatch(requestRecipes('pasta'))
+
+//   }
+    
+// }
+
+export default connect(mapStateToProps, {setSearchField, requestRecipes})(App);
