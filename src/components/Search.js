@@ -1,12 +1,12 @@
 import React from 'react';
-import { setSearchField, requestRecipes} from '../actions';
+import { setSearchField, requestResult} from '../actions';
 import { connect } from 'react-redux';
 
 const Search = function(props){
 
     const onSearchClick = (event) =>{
         event.preventDefault();
-        props.requestRecipes(props.searchField)
+        props.requestResult(props.searchField)
     
       }
     return(
@@ -31,6 +31,6 @@ const mapStateToProps = state =>{
     }
   }
   
-  export default connect(mapStateToProps, {setSearchField, requestRecipes})(Search);
+  export default connect(mapStateToProps, {setSearchField, requestResult})(Search);
 
 

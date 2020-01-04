@@ -2,17 +2,22 @@ import React from 'react';
 import Result from './Result';
 
 
-const ResultsList = function({searchResult, page, resPerPage}){
 
-    const start = (page - 1) * resPerPage;
-    const end = page * resPerPage;
+
+
+
+const ResultsList = function(props){
+
+    const start = (props.page - 1) * props.resPerPage;
+    const end = props.page * props.resPerPage;
+
  
     return(
         <ul className="results__list">
 
             {
-                searchResult.slice(start, end).map((result) => {
-                return <Result result = { result } key = {result.recipe_id}/>
+                props.searchResult.slice(start, end).map((result) => {
+                return <Result result = { result } key = { result.recipe_id }/>
             })
             }
 
@@ -20,4 +25,7 @@ const ResultsList = function({searchResult, page, resPerPage}){
 
     )
 }
-export default ResultsList
+
+
+
+export default ResultsList;

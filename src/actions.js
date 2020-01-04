@@ -1,7 +1,12 @@
 import { CHANGE_SEARCH_FIELD, 
-         REQUEST_RECIPES_PENDING,
-         REQUEST_RECIPES_SUCCESS,
-         REQUEST_RECIPES_FAILED } from './constants'
+    REQUEST_RESULTS_PENDING,
+    REQUEST_RESULTS_SUCCESS,
+    REQUEST_RESULTS_FAILED,
+    REQUEST_RECIPE_PENDING,
+    REQUEST_RECIPE_SUCCESS,
+    REQUEST_RECIPE_FAILED,
+    GET_RECIPE_ID
+ } from './constants'
 
 import axios from 'axios'
 
@@ -12,14 +17,32 @@ export const setSearchField = ( text ) => ({
 
 
 
-export const requestRecipes = (query) => async(dispatch) => {
-    dispatch({ type: REQUEST_RECIPES_PENDING });
+export const requestResult = (query) => async(dispatch) => {
+    dispatch({ type: REQUEST_RESULTS_PENDING });
     
     try {
         const res = await axios.get(`https://forkify-api.herokuapp.com/api/search?&q=${query}`);
-        dispatch({ type: REQUEST_RECIPES_SUCCESS, payload: res.data.recipes })
+        dispatch({ type: REQUEST_RESULTS_SUCCESS, payload: res.data.recipes })
     } catch(error){
-        dispatch({ type: REQUEST_RECIPES_FAILED, payload: error })
+        dispatch({ type: REQUEST_RESULTS_FAILED, payload: error })
     }
 
 }
+
+
+export const requestRecipe = (id) => async(dispatch) => {
+    dispatch({ type: REQUEST_RECIPE_PENDING });
+    
+    try {
+        const res = await axios.get(`https://forkify-api.herokuapp.com/api/get?rId=${id}`);
+        dispatch({ type: REQUEST_RECIPE_SUCCESS, payload: res.data.recipe })
+    } catch(error){
+        dispatch({ type: REQUEST_RECIPE_FAILED, payload: error })
+    }
+
+}
+
+export const getId = ( text ) => ({
+    type: GET_RECIPE_ID,
+    payload: text
+})

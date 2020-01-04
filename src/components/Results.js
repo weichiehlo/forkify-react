@@ -19,17 +19,17 @@ class Results extends Component {
   };
 
   render() {
-    if (this.props.recipes.length) {
+    if (this.props.results.length) {
       return (
         <div className="results">
           <ResultsList
-            searchResult={this.props.recipes}
+            searchResult={this.props.results}
             page={this.state.currentPage}
             resPerPage={this.state.resPerPage}
           />
           <ResultsPages
             page={this.state.currentPage}
-            numResult={this.props.recipes.length}
+            numResult={this.props.results.length}
             resPerPage={this.state.resPerPage}
             onPageClick={this.onPageClick}
           />
@@ -52,9 +52,9 @@ class Results extends Component {
 const mapStateToProps = state => {
   return {
     searchField: state.searchRecipes.searchField,
-    recipes: state.requestRecipes.recipes,
-    isPending: state.requestRecipes.isPending,
-    error: state.requestRecipes.error
+    results: state.requestResult.results,
+    isPending: state.requestResult.isPending,
+    error: state.requestResult.error
   };
 };
 
