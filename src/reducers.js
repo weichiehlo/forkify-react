@@ -2,7 +2,7 @@ import { CHANGE_SEARCH_FIELD,
     REQUEST_RESULTS_PENDING,
     REQUEST_RESULTS_SUCCESS,
     REQUEST_RESULTS_FAILED,
-    GET_RECIPE_ID,
+    GET_RECIPE_INFO,
     REQUEST_RECIPE_PENDING,
     REQUEST_RECIPE_SUCCESS,
     REQUEST_RECIPE_FAILED
@@ -62,13 +62,25 @@ export const requestRecipe= (state = initialStateRecipe, action = {}) =>{
 }
 
 const initialStateId = {
-    id:''
+    id:'',
+    title: '',
+    author: '',
+    img: '',
+    url: '',
+    ingredients: ''
 }
 
-export const getId = (state = initialStateId, action = {}) =>{
+export const setRecipeInfo = (state = initialStateId, action = {}) =>{
     switch(action.type) {
-        case GET_RECIPE_ID:
-            return {...state, id: action.payload};
+        case GET_RECIPE_INFO:
+            return {...state, 
+                id: action.payload.id,
+                title: action.payload.title,
+                author: action.payload.author,
+                img: action.payload.img,
+                url: action.payload.url,
+                ingredients: action.payload.ingredients
+            };
         default:
             return state;
     }

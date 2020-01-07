@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Fraction } from 'fractional'
+import { Fraction } from 'fractional';
 
 const createIngredient = ingredient =>{
-    console.log(ingredient)
     return(
     <li className="recipe__item">
         <svg className="recipe__icon">
@@ -127,8 +126,7 @@ const Recipe = function(props){
 const mapStateToProps = state =>{
     return {
         recipe:state.requestRecipe.recipe,
-        ingredients:state.requestRecipe.recipe.ingredients,
-        id:state.getId.id
+        id:state.setRecipeInfo.id
 
     }
   }

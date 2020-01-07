@@ -1,5 +1,5 @@
 import React from 'react';
-import { requestRecipe, getId } from '../actions';
+import { requestRecipe, setRecipeInfo } from '../actions';
 import { connect } from 'react-redux';
 
 
@@ -18,8 +18,8 @@ export const limitRecipeTitle = (title, limit = 17) => {
     return title
 }
 
-const recipeOnClick = (id, getId, requestRecipe) =>{
-    getId(id);
+const recipeOnClick = (id, setRecipeInfo, requestRecipe) =>{
+    setRecipeInfo({id: id});
     requestRecipe(id);
 }
 
@@ -27,7 +27,7 @@ const recipeOnClick = (id, getId, requestRecipe) =>{
 const Result = function(props){
         return(
             <li>
-                <a className="results__link" href={`#${props.result.recipe_id}`} onClick = { () => recipeOnClick(props.result.recipe_id, props.getId, props.requestRecipe )}>
+                <a className="results__link" href={`#${props.result.recipe_id}`} onClick = { () => recipeOnClick(props.result.recipe_id, props.setRecipeInfo, props.requestRecipe )}>
                     <figure className="results__fig">
                         <img src={`${props.result.image_url}`} alt={`${limitRecipeTitle(props.result.title)}`} /> 
                     </figure>
@@ -41,4 +41,4 @@ const Result = function(props){
         )
 }
 
-export default connect(null, { requestRecipe, getId })(Result);
+export default connect(null, { requestRecipe, setRecipeInfo })(Result);

@@ -5,7 +5,7 @@ import Results from '../components/Results'
 import Recipe from '../components/Recipe'
 import Shopping from '../components/Shopping'
 import CopyRight from '../components/CopyRight'
-import { requestRecipe, getId } from '../actions';
+import { requestRecipe, setRecipeInfo } from '../actions';
 import { connect } from 'react-redux';
 
 
@@ -13,12 +13,20 @@ import { connect } from 'react-redux';
 
 class App extends Component {
  
-  componentDidMount() {
+  async componentDidMount() {
     const id = window.location.hash.slice(1);
     if(id){
-      console.log(id)
-      this.props.getId(id)
-      this.props.requestRecipe(id)
+      await this.props.requestRecipe(id)
+     
+      this.props.setRecipeInfo({
+        id: id,
+        title: this.props.recipe.title,
+        author: this.props.recipe.publisher,
+        img: this.props.recipe.image_url,
+        url: this.props.recipe.source_url,
+        ingredients: this.props.recipe.ingredients
+      })
+      
     }
     
     
@@ -40,8 +48,13 @@ class App extends Component {
 const mapStateToProps = state =>{
   return {
       recipe:state.requestRecipe.recipe,
-      id:state.getId.id
+      id:state.setRecipeInfo.id,
+      title: state.setRecipeInfo.title,
+      author: state.setRecipeInfo.publisher,
+      img: state.setRecipeInfo.image_url,
+      url: state.setRecipeInfo.source_url,
+      ingredients: state.setRecipeInfo.ingredients
 
   }
 }
-export default connect(mapStateToProps, { requestRecipe, getId })(App);
+export default connect(mapStateToProps, { requestRecipe, setRecipeInfo })(App);
