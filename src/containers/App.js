@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 
 
 class App extends Component {
+
  
   async componentDidMount() {
     const id = window.location.hash.slice(1);
@@ -31,11 +32,28 @@ class App extends Component {
     
     
   }
+
+  recipeOnClick = async (event) =>{
+
+    const id = event.target.closest('.results__link').getAttribute('href').slice(1);
+    await this.props.requestRecipe(id);
+  
+    this.props.setRecipeInfo({
+      id: id,
+      title: this.props.recipe.title,
+      author: this.props.recipe.publisher,
+      img: this.props.recipe.image_url,
+      url: this.props.recipe.source_url,
+      ingredients: this.props.recipe.ingredients
+    })
+    
+  
+}
   render(){
     return (
       <div className="container">
           <Header />
-          <Results />
+          <Results recipeOnClick = {this.recipeOnClick}/>
           <Recipe />
           <Shopping />
           <CopyRight />

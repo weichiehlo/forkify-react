@@ -17,7 +17,7 @@ const ResultsList = function(props){
 
             {
                 props.searchResult.slice(start, end).map((result) => {
-                return <Result result = { result } key = { result.recipe_id }/>
+                return <Result result = { result } key = { result.recipe_id } recipeOnClick = {props.recipeOnClick}/>
             })
             }
 

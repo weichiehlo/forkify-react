@@ -1,10 +1,12 @@
 import React from 'react';
+import { setRecipeInfo } from '../actions';
 import { connect } from 'react-redux';
 import { Fraction } from 'fractional';
+import uniqid from 'uniqid'; 
 
 const createIngredient = ingredient =>{
     return(
-    <li className="recipe__item">
+    <li className="recipe__item" key={uniqid()}>
         <svg className="recipe__icon">
             <use href="img/icons.svg#icon-check"></use>
         </svg>
@@ -41,9 +43,9 @@ const Recipe = function(props){
             <div className="recipe">
                 
                 <figure className="recipe__fig">
-                    <img src= {props.recipe.img} alt= {props.recipe.title} className="recipe__img" />
+                    <img src= {props.img} alt= {props.title} className="recipe__img" />
                     <h1 className="recipe__title">
-                        <span>{props.recipe.title}</span>
+                        <span>{props.title}</span>
                     </h1>
                 </figure>
     
@@ -52,14 +54,14 @@ const Recipe = function(props){
                         <svg className="recipe__info-icon">
                             <use href="img/icons.svg#icon-stopwatch"></use>
                         </svg>
-                        <span className="recipe__info-data recipe__info-data--minutes">{props.recipe.time}</span>
+                        <span className="recipe__info-data recipe__info-data--minutes">{props.time}</span>
                         <span className="recipe__info-text"> minutes</span>
                     </div>
                     <div className="recipe__info">
                         <svg className="recipe__info-icon">
                             <use href="img/icons.svg#icon-man"></use>
                         </svg>
-                        <span className="recipe__info-data recipe__info-data--people">{props.recipe.servings}</span>
+                        <span className="recipe__info-data recipe__info-data--people">{props.servings}</span>
                         <span className="recipe__info-text"> servings</span>
     
                         <div className="recipe__info-buttons">
@@ -85,7 +87,7 @@ const Recipe = function(props){
     
                 <div className="recipe__ingredients">
                     <ul className="recipe__ingredient-list">
-                        {props.recipe.ingredients.map(el =>createIngredient(el))}
+                        {props.ingredients.map(el =>createIngredient(el))}
                     </ul>
     
                     <button className="btn-small recipe__btn--add">
@@ -100,9 +102,9 @@ const Recipe = function(props){
                     <h2 className="heading-2">How to cook it</h2>
                     <p className="recipe__directions-text">
                         This recipe was carefully designed and tested by
-                        <span className="recipe__by">{props.recipe.author}</span>. Please check out directions at their website.
+                        <span className="recipe__by">{props.author}</span>. Please check out directions at their website.
                     </p>
-                    <a className="btn-small recipe__btn" href={props.recipe.url} target="_blank" rel="noopener noreferrer">
+                    <a className="btn-small recipe__btn" href={props.url} target="_blank" rel="noopener noreferrer">
                         <span>Directions</span>
                         <svg className="search__icon">
                             <use href="img/icons.svg#icon-triangle-right"></use>
@@ -123,12 +125,22 @@ const Recipe = function(props){
     
 }
 
+
+
 const mapStateToProps = state =>{
     return {
-        recipe:state.requestRecipe.recipe,
-        id:state.setRecipeInfo.id
-
+      recipe:state.requestRecipe.recipe,
+      id:state.setRecipeInfo.id,
+      title: state.setRecipeInfo.title,
+      author: state.setRecipeInfo.author,
+      img: state.setRecipeInfo.img,
+      url: state.setRecipeInfo.url,
+      ingredients: state.setRecipeInfo.ingredients
     }
   }
 
-export default connect(mapStateToProps, null)(Recipe);
+export default connect(mapStateToProps, { setRecipeInfo })(Recipe);
+
+
+
+
