@@ -10,10 +10,10 @@ const createIngredient = ingredient =>{
         <svg className="recipe__icon">
             <use href="img/icons.svg#icon-check"></use>
         </svg>
-        <div className="recipe__count">${formatCount(ingredient.count)}</div>
+        <div className="recipe__count">{formatCount(ingredient.count)}</div>
         <div className="recipe__ingredient">
-            <span className="recipe__unit">${ingredient.unit}</span>
-            ${ingredient.ingredient}
+            <span className="recipe__unit">{ingredient.unit}</span>
+            {ingredient.ingredient}
         </div>
     </li>
 )}
@@ -35,6 +35,7 @@ const formatCount = count =>{
     }
     return '?';
 }
+
 
 const Recipe = function(props){
     
