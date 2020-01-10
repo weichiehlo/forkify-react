@@ -98,8 +98,8 @@ class App extends Component {
   recipeOnClick = async (event) =>{
 
     const id = event.target.closest('.results__link').getAttribute('href').slice(1);
+    this.highlightSelected(id);
     await this.props.requestRecipe(id);
-  
     this.props.setRecipeInfo({
       id: id,
       title: this.props.recipe.title,
@@ -111,6 +111,15 @@ class App extends Component {
     
   
 }
+
+highlightSelected = id =>{
+  const resultArr = Array.from(document.querySelectorAll('.results__link'))
+  resultArr.forEach(el => {
+      el.classList.remove('results__link--active');
+  });
+  document.querySelector(`.results__link[href="#${id}"]`).classList.add('results__link--active');
+}
+
   render(){
     return (
       <div className="container">
