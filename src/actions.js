@@ -5,7 +5,7 @@ import { CHANGE_SEARCH_FIELD,
     REQUEST_RECIPE_PENDING,
     REQUEST_RECIPE_SUCCESS,
     REQUEST_RECIPE_FAILED,
-    GET_RECIPE_INFO
+    SET_RECIPE_INFO
  } from './constants'
 
 import axios from 'axios'
@@ -43,12 +43,14 @@ export const requestRecipe = (id) => async(dispatch) => {
 }
 
 export const setRecipeInfo = ( info ) => ({
-    type: GET_RECIPE_INFO,
+    type: SET_RECIPE_INFO,
     payload: { id:info.id,
                title: info.title,
                author: info.author,
                img: info.img,
                url: info.url,
-               ingredients: info.ingredients
+               ingredients: info.ingredients,
+               time: info.time,
+               servings: info.servings
             }
 })

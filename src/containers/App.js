@@ -25,13 +25,22 @@ class App extends Component {
         author: this.props.recipe.publisher,
         img: this.props.recipe.image_url,
         url: this.props.recipe.source_url,
-        ingredients: this.parseIngredients()
+        ingredients: this.parseIngredients(),
+        time: this.calcTime(this.props.recipe.ingredients),
+        servings: 4
       })
       
     }
     
     
   }
+
+  calcTime = (ingredients) => {
+    //Assuming 15 mins per 3 ingredients
+    const numIng = ingredients.length;
+    const periods = Math.ceil(numIng / 3);
+    return periods * 15;   
+}
 
   parseIngredients = () => {
 
@@ -106,7 +115,9 @@ class App extends Component {
       author: this.props.recipe.publisher,
       img: this.props.recipe.image_url,
       url: this.props.recipe.source_url,
-      ingredients: this.parseIngredients()
+      ingredients: this.parseIngredients(),
+      time: this.calcTime(this.props.recipe.ingredients),
+      servings: 4
     })
     
   
