@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { setRecipeInfo } from '../actions';
 import { connect } from 'react-redux';
 import { Fraction } from 'fractional';
-import uniqid from 'uniqid'; 
+
 
 
 
@@ -51,7 +51,7 @@ class Recipe extends Component{
 
     createIngredient = ingredient =>{
         return(
-        <li className="recipe__item" key={uniqid()}>
+        <li className="recipe__item" key={ingredient.id}>
             <svg className="recipe__icon">
                 <use href="img/icons.svg#icon-check"></use>
             </svg>

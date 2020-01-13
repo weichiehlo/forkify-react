@@ -7,6 +7,7 @@ import Shopping from '../components/Shopping'
 import CopyRight from '../components/CopyRight'
 import { requestRecipe, setRecipeInfo } from '../actions';
 import { connect } from 'react-redux';
+import uniqid from 'uniqid'; 
 
 
 
@@ -78,14 +79,16 @@ class App extends Component {
             objIng = {
                 count,
                 unit: arrIng[unitIndex],
-                ingredient: arrIng.slice(unitIndex + 1).join(' ')
+                ingredient: arrIng.slice(unitIndex + 1).join(' '),
+                id: uniqid()
             }
         } else if(parseInt(arrIng[0], 10)){
             //There is no unit, but 1st element is a number
             objIng = {
                 count: parseInt(arrIng[0],10),
                 unit: '',
-                ingredient: arrIng.slice(1).join(' ')
+                ingredient: arrIng.slice(1).join(' '),
+                id: uniqid()
             }
         }else if(unitIndex === -1){
             //There is no unit and no number in first position
@@ -93,7 +96,8 @@ class App extends Component {
                 count: 1,
                 unit: '',
                 // ingredient: ingredient
-                ingredient
+                ingredient,
+                id: uniqid()
             }
 
         }
