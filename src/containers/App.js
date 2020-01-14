@@ -14,7 +14,12 @@ import uniqid from 'uniqid';
 
 class App extends Component {
 
- 
+  constructor(props){
+  super(props)
+  this.state = {
+      list: []
+  };
+}
   async componentDidMount() {
     const id = window.location.hash.slice(1);
     if(id){
@@ -126,6 +131,15 @@ class App extends Component {
     
   
 }
+  addToListButton = () => {
+    
+    this.setState({
+      list: [...this.state.list,...this.props.ingredients]
+    });
+    
+
+
+  }
 
 highlightSelected = id =>{
   const resultArr = Array.from(document.querySelectorAll('.results__link'))
@@ -140,8 +154,8 @@ highlightSelected = id =>{
       <div className="container">
           <Header />
           <Results recipeOnClick = {this.recipeOnClick}/>
-          <Recipe />
-          <Shopping />
+          <Recipe addToListButton = {this.addToListButton}/>
+          <Shopping  shoppingList = {this.state.list}/>
           <CopyRight />
       </div>
     );

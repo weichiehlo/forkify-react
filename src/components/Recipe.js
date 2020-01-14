@@ -10,9 +10,6 @@ import { Fraction } from 'fractional';
 
 
 class Recipe extends Component{
-    constructor(props){
-        super(props)
-    }
 
     recipeButtonClick = (event) => {
         if (event.target.matches('.btn-decrease, .btn-decrease *')){
@@ -134,7 +131,7 @@ class Recipe extends Component{
                             {this.props.ingredients.map(el =>this.createIngredient(el))}
                         </ul>
         
-                        <button className="btn-small recipe__btn--add">
+                        <button className="btn-small recipe__btn--add" onClick={this.props.addToListButton}>
                             <svg className="search__icon">
                                 <use href="img/icons.svg#icon-shopping-cart"></use>
                             </svg>

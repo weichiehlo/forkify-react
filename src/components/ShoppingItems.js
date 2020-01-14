@@ -1,14 +1,14 @@
 import React from 'react';
 
-const ShoppingItems = function(){
+const ShoppingItems = function( {ingredient} ){
     return(
-        <li class="shopping__item" data-item-id='dummy'>
-        <div class="shopping__count">
-            <input type="number" value="3" step="2" class="shopping__count-value"/>
-            <p>dummy</p>
+        <li className="shopping__item" data-item-id={ingredient.id}>
+        <div className="shopping__count">
+            <input type="number" value={ingredient.count} step={ingredient.count} className="shopping__count-value"/>
+            <p>{ingredient.unit}</p>
         </div>
-        <p class="shopping__description">dummy</p>
-        <button class="shopping__delete btn-tiny">
+        <p className="shopping__description">{ingredient.ingredient}</p>
+        <button className="shopping__delete btn-tiny">
             <svg>
                 <use href="img/icons.svg#icon-circle-with-cross"></use>
             </svg>
