@@ -132,9 +132,8 @@ class App extends Component {
   
 }
   addToListButton = () => {
-    
     this.setState({
-      list: [...this.state.list,...this.props.ingredients]
+      list: [...new Set([...this.state.list,...this.props.ingredients])]
     });
     
 
