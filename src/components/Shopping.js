@@ -40,7 +40,7 @@ const Shopping = function( { shoppingList } ){
 
 const mapStateToProps = state =>{
     return {
-        ingredients: state.setRecipeInfo.ingredients;
+        ingredients: state.setRecipeInfo.ingredients
     }
   }
 export default connect(mapStateToProps, null)(Shopping);

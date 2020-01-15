@@ -124,7 +124,7 @@ class Recipe extends Component{
         
                     <div className="recipe__ingredients">
                         <ul className="recipe__ingredient-list">
-                            {this.props.ingredients.map(el =>this.createIngredient(el));}
+                            {this.props.ingredients.map(el =>this.createIngredient(el))}
                         </ul>
         
                         <button className="btn-small recipe__btn--add" onClick={this.props.addToListButton}>
