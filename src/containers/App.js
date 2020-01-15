@@ -76,12 +76,20 @@ class App extends Component {
             const arrCount = arrIng.slice(0, unitIndex);
             let count;
             if (arrCount.length === 1){
-                // count = eval(arrIng[0].replace('-', '+')) EVAL is not save to use, thus change it to Function
-                count = Function(`'use strict'; return (${arrIng[0].replace('-', '+')})`)()
+                // count = eval(arrIng[0].replace('-', '+')) //EVAL is not save to use, thus change it to Function
+                try{
+                  count = new Function(`return (${arrIng[0].replace('-', '+')})`)()
+                }catch{
+                  count = 1;
+                }
             }
             else{
                 // count = eval(arrIng.slice(0,unitIndex).join('+'))
-                count = Function(`'use strict'; return (${arrIng.slice(0,unitIndex).join('+')})`)()
+                try{
+                  count = new Function(`return (${arrIng.slice(0,unitIndex).join('+')})`)()
+                }catch{
+                  count = 1;
+                }
 
             }
             objIng = {

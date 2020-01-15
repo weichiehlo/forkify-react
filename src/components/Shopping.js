@@ -3,6 +3,7 @@ import ShoppingItems from './ShoppingItems'
 import { connect } from 'react-redux';
 
 
+
 const Shopping = function( { shoppingList } ){
     if( shoppingList.length>0 )
     {

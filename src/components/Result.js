@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 
 export const limitRecipeTitle = (title, limit = 17) => {
@@ -35,16 +34,5 @@ const Result = function(props){
         )
 }
 
-const mapStateToProps = state =>{
-    return {
-      recipe:state.requestRecipe.recipe,
-      id:state.setRecipeInfo.id,
-      title: state.setRecipeInfo.title,
-      author: state.setRecipeInfo.publisher,
-      img: state.setRecipeInfo.image_url,
-      url: state.setRecipeInfo.source_url,
-      ingredients: state.setRecipeInfo.ingredients
-    }
-  }
 
-export default connect(mapStateToProps, null)(Result);
+export default Result;
