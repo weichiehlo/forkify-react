@@ -14,7 +14,7 @@ class Results extends Component {
 
   onPageClick = event => {
     this.setState({
-      currentPage: parseInt(event.target.closest(".btn-inline").dataset.goto)
+      currentPage: parseInt(event.target.closest(".btn-inline").dataset.goto);
     });
   };
 

@@ -6,7 +6,7 @@ const Search = function(props){
 
     const onSearchClick = (event) =>{
         event.preventDefault();
-        props.requestResult(props.searchField)
+        props.requestResult(props.searchField);
     
       }
     return(

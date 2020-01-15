@@ -5,10 +5,6 @@ import { Fraction } from 'fractional';
 
 
 
-
-
-
-
 class Recipe extends Component{
 
     recipeButtonClick = (event) => {
@@ -24,13 +20,13 @@ class Recipe extends Component{
     }
     
     updateServings = (type) => {
-        let newServing, newIngredients
+        let newServing, newIngredients;
         //Update servings
         newServing = type === 'dec'?  this.props.servings - 1 : this.props.servings + 1;
         //Update Ingredients
         newIngredients = this.props.ingredients.map(ingredient => {
             ingredient.count *= (newServing/this.props.servings);
-            return ingredient
+            return ingredient;
         })
         this.props.setRecipeInfo(
             {
@@ -64,15 +60,15 @@ class Recipe extends Component{
     formatCount = count =>{
         if(count){
             const newCount = Math.round(count * 10000) / 10000;
-            const [int, dec] = count.toString().split('.').map(el => parseInt(el,10))
+            const [int, dec] = count.toString().split('.').map(el => parseInt(el,10));
     
             if(!dec) return newCount;
             if(int === 0) {
                 const fr = new Fraction(newCount);
-                return `${fr.numerator}/${fr.denominator}`
+                return `${fr.numerator}/${fr.denominator}`;
             } else{
                 const fr = new Fraction(newCount-int);
-                return `${int} ${fr.numerator}/${fr.denominator}`
+                return `${int} ${fr.numerator}/${fr.denominator}`;
             }
         }
         return '?';
@@ -128,7 +124,7 @@ class Recipe extends Component{
         
                     <div className="recipe__ingredients">
                         <ul className="recipe__ingredient-list">
-                            {this.props.ingredients.map(el =>this.createIngredient(el))}
+                            {this.props.ingredients.map(el =>this.createIngredient(el));}
                         </ul>
         
                         <button className="btn-small recipe__btn--add" onClick={this.props.addToListButton}>
