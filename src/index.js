@@ -6,11 +6,11 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import * as serviceWorker from './serviceWorker';
-import { searchRecipes, requestResult, requestRecipe, setRecipeInfo} from './reducers'
+import { searchRecipes, requestResult, requestRecipe, setRecipeInfo, setLikedRecipe} from './reducers'
 
 const logger = createLogger();
 
-const rootReducer = combineReducers({ searchRecipes, requestResult, requestRecipe, setRecipeInfo })
+const rootReducer = combineReducers({ searchRecipes, requestResult, requestRecipe, setRecipeInfo, setLikedRecipe})
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger))
 
 ReactDOM.render(

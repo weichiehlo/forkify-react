@@ -5,7 +5,7 @@ import Results from '../components/Results'
 import Recipe from '../components/Recipe'
 import Shopping from '../components/Shopping'
 import CopyRight from '../components/CopyRight'
-import { requestRecipe, setRecipeInfo } from '../actions';
+import { requestRecipe, setRecipeInfo, setLike, setLikedRecipe } from '../actions';
 import { connect } from 'react-redux';
 import uniqid from 'uniqid'; 
 
@@ -50,8 +50,8 @@ class App extends Component {
 
   parseIngredients = () => {
 
-    const unitsLong = ['tablespoons','tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
-    const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
+    const unitsLong = ['tablespoons','tablespoon', 'ounces', 'ounce', 'oz.', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
+    const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
     const units = [...unitsShort,'kg','g'];
 
     const newIngredients = this.props.recipe.ingredients.map(el => {
@@ -147,9 +147,21 @@ class App extends Component {
       list: [...new Set([...this.state.list,...this.props.ingredients])]
     });
     
-
-
   }
+
+  likeButton = () =>{
+    this.props.setLike(this.props.liked? false: true);
+    let currentLiked = this.props.likedRecipe;
+    console.log(this.props)
+    currentLiked.push({
+      id: this.props.id,
+      img: this.props.img,
+      title: this.props.title,
+      author: this.props.author,
+
+    })
+    this.props.setLikedRecipe(currentLiked);
+}
 
 highlightSelected = id =>{
   const resultArr = Array.from(document.querySelectorAll('.results__link'))
@@ -164,7 +176,7 @@ highlightSelected = id =>{
       <div className="container">
           <Header />
           <Results recipeOnClick = {this.recipeOnClick}/>
-          <Recipe addToListButton = {this.addToListButton}/>
+          <Recipe addToListButton = {this.addToListButton} likeButton = { this.likeButton }/>
           <Shopping  shoppingList = {this.state.list}/>
           <CopyRight />
       </div>
@@ -178,11 +190,13 @@ const mapStateToProps = state =>{
       recipe:state.requestRecipe.recipe,
       id:state.setRecipeInfo.id,
       title: state.setRecipeInfo.title,
-      author: state.setRecipeInfo.publisher,
-      img: state.setRecipeInfo.image_url,
-      url: state.setRecipeInfo.source_url,
-      ingredients: state.setRecipeInfo.ingredients
+      author: state.setRecipeInfo.author,
+      img: state.setRecipeInfo.img,
+      url: state.setRecipeInfo.url,
+      ingredients: state.setRecipeInfo.ingredients,
+      liked: state.setRecipeInfo.liked,
+      likedRecipe: state.setLikedRecipe.likedRecipe
 
   }
 }
-export default connect(mapStateToProps, { requestRecipe, setRecipeInfo })(App);
+export default connect(mapStateToProps, { requestRecipe, setRecipeInfo, setLike, setLikedRecipe })(App);

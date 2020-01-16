@@ -74,6 +74,8 @@ class Recipe extends Component{
         return '?';
     }
 
+
+
     render() {
         if(this.props.id && this.props.recipe.length !== 0){
             return(
@@ -115,9 +117,9 @@ class Recipe extends Component{
                             </div>
         
                         </div>
-                        <button className="recipe__love">
+                        <button className="recipe__love" onClick={ this.props.likeButton }>
                             <svg className="header__likes">
-                                <use href="img/icons.svg#icon-heart"></use>
+                                <use href={`img/icons.svg#icon-heart${this.props.liked? '' : '-outlined'}`}></use>
                             </svg>
                         </button>
                     </div>
@@ -177,7 +179,8 @@ const mapStateToProps = state =>{
       url: state.setRecipeInfo.url,
       ingredients: state.setRecipeInfo.ingredients,
       time: state.setRecipeInfo.time,
-      servings: state.setRecipeInfo.servings
+      servings: state.setRecipeInfo.servings,
+      liked:state.setRecipeInfo.liked
     }
   }
 

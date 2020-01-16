@@ -5,7 +5,9 @@ import { CHANGE_SEARCH_FIELD,
     SET_RECIPE_INFO,
     REQUEST_RECIPE_PENDING,
     REQUEST_RECIPE_SUCCESS,
-    REQUEST_RECIPE_FAILED
+    REQUEST_RECIPE_FAILED,
+    SET_LIKE,
+    SET_LIKE_RECIPE
  } from './constants'
 
 const initialStateSearch = {
@@ -69,7 +71,8 @@ const initialStateSetInfo = {
     url: '',
     ingredients: '',
     time: '',
-    servings: 4
+    servings: 4,
+    liked: false
 }
 
 export const setRecipeInfo = (state = initialStateSetInfo, action = {}) =>{
@@ -85,7 +88,27 @@ export const setRecipeInfo = (state = initialStateSetInfo, action = {}) =>{
                 time: action.payload.time,
                 servings: action.payload.servings
             };
+        case SET_LIKE:
+            return {...state,
+                liked: action.payload.liked
+            }
         default:
             return state;
     }
+}
+
+const initialStateLikRecipe = {
+    likedRecipe: []
+}
+
+export const setLikedRecipe = (state = initialStateLikRecipe, action = {}) => {
+    switch(action.type) {
+        case SET_LIKE_RECIPE:
+            return {...state,
+                likedRecipe: action.payload
+            }
+        default:
+            return state;
+    }
+
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Likes = function(){
+const LikeList = function(){
     return(
         <div className="likes">
                 <div className="likes__field">
@@ -28,4 +28,4 @@ const Likes = function(){
 
     )
 }
-export default Likes
+export default LikeList
