@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import { setRecipeInfo } from '../actions';
+import { setRecipeInfo, setLikedRecipe } from '../actions';
 import { connect } from 'react-redux';
 import { Fraction } from 'fractional';
 
 
 
 class Recipe extends Component{
+
 
     recipeButtonClick = (event) => {
         if (event.target.matches('.btn-decrease, .btn-decrease *')){
@@ -74,7 +75,44 @@ class Recipe extends Component{
         return '?';
     }
 
+    liked = (id, likedRecipe) =>{
+        let result = [false,-1];
+        likedRecipe.forEach((recipe,idx) =>{
+            if(id === recipe.id){
+                result = [true,idx];
+            }
+        })
+        if(result[0]){
+            return result
+        }else{
+            return [false,-1]
+        }
+        
+      }
 
+    likeButton = () =>{
+
+        let currentLiked = this.props.likedRecipe;
+        const [condition,idx] = this.liked(this.props.id,this.props.likedRecipe)
+
+        if(condition){
+            this.setState({liked:false})
+            currentLiked.splice(idx,1)
+            this.props.setLikedRecipe(currentLiked)
+            }
+        else{
+            this.setState({liked:true})
+            currentLiked.push({
+                id: this.props.id,
+                img: this.props.img,
+                title: this.props.title,
+                author: this.props.author   
+            })
+            this.props.setLikedRecipe(currentLiked);
+            
+        }
+
+    }
 
     render() {
         if(this.props.id && this.props.recipe.length !== 0){
@@ -117,9 +155,9 @@ class Recipe extends Component{
                             </div>
         
                         </div>
-                        <button className="recipe__love" onClick={ this.props.likeButton }>
+                        <button className="recipe__love" onClick={ this.likeButton }>
                             <svg className="header__likes">
-                                <use href={`img/icons.svg#icon-heart${this.props.liked? '' : '-outlined'}`}></use>
+                                <use href={`img/icons.svg#icon-heart${this.liked(this.props.id,this.props.likedRecipe)[0]? '' : '-outlined'}`}></use>
                             </svg>
                         </button>
                     </div>
@@ -180,11 +218,12 @@ const mapStateToProps = state =>{
       ingredients: state.setRecipeInfo.ingredients,
       time: state.setRecipeInfo.time,
       servings: state.setRecipeInfo.servings,
-      liked:state.setRecipeInfo.liked
+      likedRecipe: state.setLikedRecipe.likedRecipe
+
     }
   }
 
-export default connect(mapStateToProps, { setRecipeInfo })(Recipe);
+export default connect(mapStateToProps, { setRecipeInfo, setLikedRecipe })(Recipe);
 
 
 

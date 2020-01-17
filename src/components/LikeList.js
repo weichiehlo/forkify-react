@@ -1,11 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const LikeList = function(){
+const LikeList = function(props){
+    console.log(props.likedRecipe)
     return(
         <div className="likes">
                 <div className="likes__field">
                     <svg className="likes__icon">
-                        <use href="img/icons.svg#icon-heart"></use>
+                        <use href={`img/icons.svg#icon-heart${props.likedRecipe.length > 0? '' : '-outlined'}`}></use>
                     </svg>
                 </div>
                 <div className="likes__panel">
@@ -28,4 +30,13 @@ const LikeList = function(){
 
     )
 }
-export default LikeList
+
+const mapStateToProps = state =>{
+    return {
+
+      likedRecipe: state.setLikedRecipe.likedRecipe
+
+    }
+  }
+
+export default connect(mapStateToProps, null)(LikeList);

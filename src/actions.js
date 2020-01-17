@@ -6,7 +6,6 @@ import { CHANGE_SEARCH_FIELD,
     REQUEST_RECIPE_SUCCESS,
     REQUEST_RECIPE_FAILED,
     SET_RECIPE_INFO,
-    SET_LIKE,
     SET_LIKE_RECIPE
  } from './constants'
 
@@ -57,12 +56,6 @@ export const setRecipeInfo = ( info ) => ({
             }
 })
 
-export const setLike = (condition) => ({
-    type: SET_LIKE,
-    payload: {
-        liked: condition
-    }
-})
 
 export const setLikedRecipe = ( recipe ) => ({
     type: SET_LIKE_RECIPE,
