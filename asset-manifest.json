@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/forkify-react/static/css/main.f6669b2e.chunk.css",
+    "main.js": "/forkify-react/static/js/main.e1d97eed.chunk.js",
+    "main.js.map": "/forkify-react/static/js/main.e1d97eed.chunk.js.map",
+    "runtime-main.js": "/forkify-react/static/js/runtime-main.b3e45ee3.js",
+    "runtime-main.js.map": "/forkify-react/static/js/runtime-main.b3e45ee3.js.map",
+    "static/js/2.670da231.chunk.js": "/forkify-react/static/js/2.670da231.chunk.js",
+    "static/js/2.670da231.chunk.js.map": "/forkify-react/static/js/2.670da231.chunk.js.map",
+    "index.html": "/forkify-react/index.html",
+    "precache-manifest.68bf9f317859aed9d52212f948323cc9.js": "/forkify-react/precache-manifest.68bf9f317859aed9d52212f948323cc9.js",
+    "service-worker.js": "/forkify-react/service-worker.js",
+    "static/css/main.f6669b2e.chunk.css.map": "/forkify-react/static/css/main.f6669b2e.chunk.css.map",
+    "static/js/2.670da231.chunk.js.LICENSE": "/forkify-react/static/js/2.670da231.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b3e45ee3.js",
+    "static/js/2.670da231.chunk.js",
+    "static/css/main.f6669b2e.chunk.css",
+    "static/js/main.e1d97eed.chunk.js"
+  ]
+}
