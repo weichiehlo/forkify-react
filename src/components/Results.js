@@ -26,7 +26,7 @@ class Results extends Component {
             searchResult={this.props.results}
             page={this.state.currentPage}
             resPerPage={this.state.resPerPage}
-            recipeOnClick = {this.props.recipeOnClick}
+            recipeOnClick={this.props.recipeOnClick}
           />
           <ResultsPages
             page={this.state.currentPage}
@@ -60,4 +60,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, null)(Results);
-
