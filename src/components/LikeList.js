@@ -1,34 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import LikeItem from './LikeItem'
+
 
 const LikeList = function(props){
-    console.log(props.likedRecipe)
-    return(
-        <div className="likes">
+    
+    if(props.isLike){
+        return(
+            <div className="likes">
                 <div className="likes__field">
                     <svg className="likes__icon">
-                        <use href={`img/icons.svg#icon-heart${props.likedRecipe.length > 0? '' : '-outlined'}`}></use>
+                        <use href={`img/icons.svg#icon-heart${props.isLike? '' : '-outlined'}`}></use>
                     </svg>
                 </div>
                 <div className="likes__panel">
                     <ul className="likes__list">   
-                        {/* <li>
-                            <a class="likes__link" href="#23456">
-                                <figure class="likes__fig">
-                                    <img src="img/test-1.jpg" alt="Test">
-                                </figure>
-                                <div class="likes__data">
-                                    <h4 class="likes__name">Pasta with Tomato ...</h4>
-                                    <p class="likes__author">The Pioneer Woman</p>
-                                </div>
-                            </a>
-                        </li> */}
-                        
+                        {
+                            props.likedRecipe.map(item => <LikeItem item = {item} key = {item.id} likeItemOnClick = {props.likeItemOnClick}/>)
+                        }
                     </ul>
                 </div>
-            </div>
+        </div>
 
-    )
+                )
+    }else{
+        return (
+            <div>
+
+            </div>
+        )
+    }
 }
 
 const mapStateToProps = state =>{

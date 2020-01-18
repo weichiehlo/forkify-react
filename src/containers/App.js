@@ -17,7 +17,8 @@ class App extends Component {
   constructor(props){
   super(props)
   this.state = {
-      list: []
+      list: [],
+      isLike: 0
   };
 }
   async componentDidMount() {
@@ -150,6 +151,59 @@ class App extends Component {
     
   }
 
+  liked = (id, likedRecipe) =>{
+    let result = [false,-1];
+    likedRecipe.forEach((recipe,idx) =>{
+        if(id === recipe.id){
+            result = [true,idx];
+        }
+    })
+    if(result[0]){
+        return result
+    }else{
+        return [false,-1]
+    }
+    
+  }
+
+likeButton = () =>{
+
+    let currentLiked = this.props.likedRecipe;
+    const [condition,idx] = this.liked(this.props.id,this.props.likedRecipe)
+
+    if(condition){
+        currentLiked.splice(idx,1)
+        this.props.setLikedRecipe(currentLiked)
+        }
+    else{
+        currentLiked.push({
+            id: this.props.id,
+            img: this.props.img,
+            title: this.props.title,
+            author: this.props.author   
+        })
+        this.props.setLikedRecipe(currentLiked);
+        
+    }
+    this.props.likedRecipe.length > 0? this.setState({isLike:this.state.isLike+1}) : this.setState({isLike:0})
+}
+
+likeItemOnClick = async(event) =>{
+  const id = event.target.closest('.likes__link').getAttribute('href').slice(1);
+    this.highlightSelected(id);
+    await this.props.requestRecipe(id);
+    this.props.setRecipeInfo({
+      id: id,
+      title: this.props.recipe.title,
+      author: this.props.recipe.publisher,
+      img: this.props.recipe.image_url,
+      url: this.props.recipe.source_url,
+      ingredients: this.parseIngredients(),
+      time: this.calcTime(this.props.recipe.ingredients),
+      servings: 4
+    })
+}
+
 
 
 
@@ -164,9 +218,9 @@ highlightSelected = id =>{
   render(){
     return (
       <div className="container">
-          <Header />
+          <Header isLike= { this.state.isLike } likeList= { this.state.likeList} likeItemOnClick = {this.likeItemOnClick}/>
           <Results recipeOnClick = {this.recipeOnClick}/>
-          <Recipe addToListButton = {this.addToListButton}/>
+          <Recipe addToListButton = {this.addToListButton} likeButton = {this.likeButton} liked = {this.liked(this.props.id,this.props.likedRecipe)}/>
           <Shopping  shoppingList = {this.state.list}/>
           <CopyRight />
       </div>
